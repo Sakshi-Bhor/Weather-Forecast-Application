@@ -1,0 +1,41 @@
+/* Smooth transitions */
+body {
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Hover animation on cards */
+.card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.card-hover:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+/* Floating icon */
+.floating { animation: floatY 4s ease-in-out infinite; }
+@keyframes floatY {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-6px); }
+}
+
+/* Animated background using a CSS variable (updated by JS) */
+body { --bg-image: url("images/cloudy.png"); }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 200%;
+  height: 200%;
+  background: var(--bg-image) repeat;
+  opacity: 0.06;
+  animation: floatX 60s linear infinite;
+  z-index: -1;
+}
+@keyframes floatX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Dark mode background stronger */
+body.dark::before { opacity: 0.08; }
+
+/* Rainy overlay */
+body.is-rainy {
+  background-image: linear-gradient(180deg, rgba(147,197,253,0.25), rgba(59,130,246,0.2));
+}
+body.dark.is-rainy {
+  background-image: linear-gradient(180deg, rgba(30,64,175,0.35), rgba(30,58,138,0.35));
+}
