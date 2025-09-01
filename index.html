@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Forecast Application</title>
+
+  <!-- Tailwind via CDN (no build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Your small custom CSS (animations, bg effects) -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="text-gray-900 transition-colors duration-500 bg-gray-100 dark:bg-gray-900 dark:text-white">
+
+  <!-- Sticky/Responsive Navbar -->
+  <nav class="fixed top-0 left-0 z-50 w-full shadow bg-white/90 backdrop-blur dark:bg-gray-800/90">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand -->
+        <div class="flex items-center">
+          <img src="images/weather-icon.png" alt="logo" class="mr-2 w-7 h-7 sm:w-8 sm:h-8">
+          <h1 class="text-base font-bold sm:text-lg">Weather Forecast Application</h1>
+        </div>
+
+        <!-- Right controls -->
+        <div class="flex items-center gap-2">
+          <!-- °C / °F toggle -->
+          <button id="unitToggle" class="px-3 py-2 text-sm text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+            °C
+          </button>
+
+          <!-- Theme toggle -->
+          <button id="themeToggle" class="px-3 py-2 text-sm text-gray-800 bg-gray-200 rounded-lg dark:bg-gray-700 dark:text-gray-200">
+            🌙
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Spacer to avoid content under navbar -->
+  <div class="h-16"></div>
+
+  <!-- Search section -->
+  <section class="max-w-3xl px-4 mx-auto mt-6">
+    <div class="flex flex-col gap-2 sm:flex-row">
+      <input id="cityInput" type="text" placeholder="Enter city name"
+             class="flex-1 px-4 py-2 border rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600"
+             aria-label="City name">
+      <button id="searchBtn" class="flex items-center justify-center px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+        <img src="images/search.png" class="w-5 h-5" alt="Search">
+      </button>
+
+      <!-- Geolocation -->
+      <button id="geoBtn" class="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600" title="Use current location">
+        📍
+      </button>
+
+      <!-- Recent cities dropdown (hidden if none) -->
+      <select id="recentSelect"
+              class="hidden px-3 py-2 bg-white border rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              title="Recently searched">
+      </select>
+    </div>
+
+    <!-- Inline error (no alert) -->
+    <p id="errorMsg" class="hidden mt-2 text-sm text-red-500"></p>
+  </section>
+
+  <!-- Extreme alert (custom) -->
+  <div id="extremeAlert" class="hidden max-w-3xl px-4 mx-auto mt-4">
+    <div class="px-4 py-3 text-red-700 bg-red-100 border border-red-200 rounded-lg dark:bg-red-900/30 dark:text-red-300 dark:border-red-900">
+      ⚠️ Extreme Heat Alert: Today’s temperature is above 40°C.
+    </div>
+  </div>
+
+  <!-- Today card -->
+  <section id="weather" class="hidden max-w-3xl px-4 mx-auto mt-6">
+    <div class="p-6 text-center bg-white shadow rounded-xl dark:bg-gray-800 card-hover">
+      <img id="weatherIcon" src="images/weather-icon.png" class="w-20 h-20 mx-auto mb-2 floating" alt="Weather icon"/>
+      <h2 id="cityEl" class="text-2xl font-bold">City</h2>
+      <h1 id="tempEl" class="mt-1 text-4xl font-bold">--°C</h1>
+      <p id="conditionEl" class="mt-1 text-lg italic">—</p>
+      <div class="grid grid-cols-2 gap-3 mt-4 text-sm sm:grid-cols-4">
+        <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-700">
+          <div class="font-semibold">Humidity</div>
+          <div><span id="humidityEl">--</span>%</div>
+        </div>
+        <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-700">
+          <div class="font-semibold">Wind</div>
+          <div><span id="windEl">--</span> km/h</div>
+        </div>
+        <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-700">
+          <div class="font-semibold">Feels Like</div>
+          <div><span id="feelsEl">--</span>°</div>
+        </div>
+        <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-700">
+          <div class="font-semibold">UV</div>
+          <div><span id="uvEl">--</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-Day Forecast -->
+  <section class="max-w-6xl px-4 mx-auto mt-8">
+    <h3 class="mb-3 text-lg font-semibold">5-Day Forecast</h3>
+    <div id="forecast" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5"></div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
